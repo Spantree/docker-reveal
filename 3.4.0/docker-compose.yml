@@ -1,0 +1,10 @@
+version: '2'
+services:
+  reveal:
+    build: .
+    volumes:
+      - ./:/usr/src/slides
+      - /usr/src/slides/node_modules
+      - /usr/src/slides/bower_components
+    ports:
+      - "9000:9000"
