@@ -1,0 +1,8 @@
+version: '2'
+services:
+  reveal:
+    build: .
+    volumes:
+      - ./slides:/usr/src/slides/slides
+    ports:
+      - "9000:9000"
