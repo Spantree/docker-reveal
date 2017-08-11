@@ -7,12 +7,13 @@ ENV NPM_CACHE_DIR /var/cache/npm
 
 WORKDIR /usr/src/slides
 
-RUN apk -U add \
+RUN apk --no-cache add \
     git \
-    python \
     ruby \
     su-exec \
- && apk -U add --virtual build-dependencies \
+    ruby-dev \
+    libffi-dev \
+ && apk --no-cache add --virtual build-dependencies \
     alpine-sdk \
  && gem install --no-document sass \
  && npm install -g \
@@ -26,8 +27,7 @@ RUN apk -U add \
  && mkdir -p $NPM_CACHE_DIR \
  && chown -R node $NPM_CACHE_DIR \
  && npm-cache install \
- && apk del build-dependencies \
- && rm -rf /var/cache/apk/*
+ && apk del build-dependencies libffi-dev ruby-dev
 
 ONBUILD ADD package.json /usr/src/slides
 ONBUILD RUN npm install
